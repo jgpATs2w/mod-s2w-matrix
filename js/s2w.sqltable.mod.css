@@ -1,0 +1,22 @@
+/** Styling the table**/
+#s2w_sqltable .tr_header{
+	font-size: 1.5em;
+	color: #555;
+	cursor: pointer;
+}
+#s2w_sqltable .td_header{padding: 0.1em;}
+#s2w_sqltable .td_header:hover{ color: #000;}
+#s2w_sqltable .tr_data{}
+#s2w_sqltable .tr_data {
+	padding: 0.2em;
+	color: #333;
+}
+#s2w_sqltable .impar{ background: #CCCCCC;}
+#s2w_sqltable .td_data{}
+#s2w_sqltable .td_supr{
+	background: #DDD;
+	font-size: 0.5em;
+	cursor: pointer;
+}
+#s2w_sqltable .td_supr{font-size: 0.5em;}
+#s2w_sqltable .td_supr:hover{color:#000; background: #CCC;}

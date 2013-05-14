@@ -1,0 +1,58 @@
+<link  rel="stylesheet" type="text/css" href="s2w.sqltable.mod.css" media="all"/>
+<script type="text/javascript" src="../../log/js/s2w.log.mod.js"></script>
+<script type="text/javascript" src="../../error/js/s2w.error.mod.js"></script>
+<script type="text/javascript" src="s2w.sqlmatrix.mod.js"></script>
+<script type="text/javascript" src="s2w.sqltable.mod.js"></script>
+<h1>Testing SQL Matrix</h1>
+<input id="input_json" type="text" size="80%"/>
+<div id="div_output" style="padding: 20px;">&nbsp;</div>
+<div id="s2w_table_div" style="padding: 20px;">&nbsp;</div>
+<script>
+	var input_json = document.getElementById('input_json');
+	input_json.value = '[{"id":0,"uname":"eleuteron","poema":"34679","email":"uno@otro.net"},'+
+						'{"id":1,"uname":"admi","poema":"134679","email":"eleuteron@gmail.com"},'+
+						'{"id":2,"uname":"otro","poema":"88888","email":"olo@gmail.com"},'+
+						'{"id":3,"uname":"mas","poema":"030102","email":"minino@gmail.com"}]';
+	//register actions to be done when the cell content changes
+	s2w.Table.onCellChanged = function(row,column,value){
+		alert([row,column,value]);
+	}
+	//register actions to be done when 'suprimir' is clicked
+	s2w.Table.onDelete = function(id){
+		alert('action to delete '+id);
+	}
+	function loadMatrix(){
+		s2w.Matrix = new s2w.SQLMatrix(input_json.value);
+		
+		s2w.Table.render();//it will take s2w.Matrix
+	}
+	loadMatrix();
+	function add2Matrix(){
+		s2w.Matrix.add({
+			"uname": "javier",
+			"poema": "134",
+			"email": "mi@gmika.com"
+		});
+	}
+	function sortMatrix(){
+		s2w.Matrix.sortBy("uname",1);
+	}
+
+	function walk(){
+		s2w.Matrix.walk(function(e){
+				console.info(e.uname);
+			}	
+		)
+	}
+	
+	function write2div(m){
+		document.getElementById('div_output').innerHTML = m;
+	}
+</script>
+
+<button onclick="loadMatrix()">IMPORT</button>
+<button onclick="add2Matrix()">ADD</button>
+<button onclick="sortMatrix()">SORT</button>
+<button onclick="write2div(s2w.Matrix.get('uname').join())">GET</button>
+<button onclick="write2div(s2w.Matrix.getKeys().join())">GET KEYS</button>
+<button onclick="write2div(s2w.Matrix.toJSONString())">TO JSON</button>
